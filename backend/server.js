@@ -3,17 +3,14 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
-const env = require('./config/env');
+const env = require('../config/env');
 const apiRoutes = require('./controllers/routes/api');
 const crossOrigin = require('./controllers/middlewares/crossOrigin');
 const errorHandler = require('./controllers/middlewares/errorHandler');
-const connectDB = require('./config/postgres_db');
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-
-connectDB();
 
 app.use(
   session({
