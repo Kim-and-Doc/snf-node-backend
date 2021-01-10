@@ -5,6 +5,7 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
+ * createTable "Countries", deps: []
  * createTable "Users", deps: []
  *
  **/
@@ -12,83 +13,127 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "migrations",
-    "created": "2021-01-10T04:09:53.987Z",
+    "created": "2021-01-10T21:52:49.851Z",
     "comment": ""
 };
 
 var migrationCommands = function(transaction) {
     return [{
-        fn: "createTable",
-        params: [
-            "Users",
-            {
-                "userId": {
-                    "type": Sequelize.UUID,
-                    "field": "userId",
-                    "allowNull": false,
-                    "primaryKey": true,
-                    "defaultValue": Sequelize.UUIDV4
+            fn: "createTable",
+            params: [
+                "Countries",
+                {
+                    "countryId": {
+                        "type": Sequelize.INTEGER,
+                        "field": "countryId",
+                        "autoIncrement": true,
+                        "primaryKey": true,
+                        "allowNull": false
+                    },
+                    "country": {
+                        "type": Sequelize.STRING,
+                        "field": "country"
+                    },
+                    "countryCode": {
+                        "type": Sequelize.STRING,
+                        "field": "countryCode"
+                    },
+                    "createdAt": {
+                        "type": Sequelize.DATE,
+                        "field": "createdAt",
+                        "allowNull": false
+                    },
+                    "updatedAt": {
+                        "type": Sequelize.DATE,
+                        "field": "updatedAt",
+                        "allowNull": false
+                    }
                 },
-                "firstName": {
-                    "type": Sequelize.STRING,
-                    "field": "firstName",
-                    "allowNull": false
-                },
-                "lastName": {
-                    "type": Sequelize.STRING,
-                    "field": "lastName",
-                    "allowNull": false
-                },
-                "email": {
-                    "type": Sequelize.STRING,
-                    "field": "email",
-                    "allowNull": false,
-                    "unique": true
-                },
-                "password": {
-                    "type": Sequelize.STRING,
-                    "field": "password",
-                    "allowNull": false
-                },
-                "joinedDate": {
-                    "type": Sequelize.DATE,
-                    "field": "joinedDate",
-                    "defaultValue": Sequelize.NOW,
-                    "allowNull": false
-                },
-                "profileImage": {
-                    "type": Sequelize.STRING,
-                    "field": "profileImage",
-                    "defaultValue": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                },
-                "friends": {
-                    "type": Sequelize.ARRAY(Sequelize.STRING),
-                    "field": "friends"
-                },
-                "createdAt": {
-                    "type": Sequelize.DATE,
-                    "field": "createdAt",
-                    "allowNull": false
-                },
-                "updatedAt": {
-                    "type": Sequelize.DATE,
-                    "field": "updatedAt",
-                    "allowNull": false
+                {
+                    "transaction": transaction
                 }
-            },
-            {
-                "transaction": transaction
-            }
-        ]
-    }];
+            ]
+        },
+        {
+            fn: "createTable",
+            params: [
+                "Users",
+                {
+                    "userId": {
+                        "type": Sequelize.UUID,
+                        "field": "userId",
+                        "allowNull": false,
+                        "primaryKey": true,
+                        "defaultValue": Sequelize.UUIDV4
+                    },
+                    "firstName": {
+                        "type": Sequelize.STRING,
+                        "field": "firstName",
+                        "allowNull": false
+                    },
+                    "lastName": {
+                        "type": Sequelize.STRING,
+                        "field": "lastName",
+                        "allowNull": false
+                    },
+                    "email": {
+                        "type": Sequelize.STRING,
+                        "field": "email",
+                        "allowNull": false,
+                        "unique": true
+                    },
+                    "password": {
+                        "type": Sequelize.STRING,
+                        "field": "password",
+                        "allowNull": false
+                    },
+                    "joinedDate": {
+                        "type": Sequelize.DATE,
+                        "field": "joinedDate",
+                        "defaultValue": Sequelize.NOW,
+                        "allowNull": false
+                    },
+                    "profileImage": {
+                        "type": Sequelize.STRING,
+                        "field": "profileImage",
+                        "defaultValue": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                    },
+                    "friends": {
+                        "type": Sequelize.ARRAY(Sequelize.STRING),
+                        "field": "friends"
+                    },
+                    "createdAt": {
+                        "type": Sequelize.DATE,
+                        "field": "createdAt",
+                        "allowNull": false
+                    },
+                    "updatedAt": {
+                        "type": Sequelize.DATE,
+                        "field": "updatedAt",
+                        "allowNull": false
+                    }
+                },
+                {
+                    "transaction": transaction
+                }
+            ]
+        }
+    ];
 };
 var rollbackCommands = function(transaction) {
     return [{
-        fn: "dropTable",
-        params: ["Users", {
-            transaction: transaction
-        }]
-    }];
+            fn: "dropTable",
+            params: ["Countries", {
+                transaction: transaction
+            }]
+        },
+        {
+            fn: "dropTable",
+            params: ["Users", {
+                transaction: transaction
+            }]
+        }
+    ];
 };
 
 module.exports = {

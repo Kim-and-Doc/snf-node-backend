@@ -9,7 +9,8 @@
     "db:create": "sequelize-cli db:create",
     "db:migrate": "sequelize-cli db:migrate",
     "db:g:migration": "sequelize-cli migration:generate --name",
-    "db:makemigrations": "./node_modules/sequelize-auto-migrations/bin/makemigration.js"
+    "db:makemigrations": "./node_modules/sequelize-auto-migrations/bin/makemigration.js",
+    "db:runmigration": "./node_modules/sequelize-auto-migrations/bin/runmigration.js"
   },
   "repository": {
     "type": "git",
