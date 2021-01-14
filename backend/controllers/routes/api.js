@@ -1,33 +1,26 @@
 const { Router } = require('express');
+
 const router = Router();
 
-// route methods
-const {getLogin} = require('./auth/login')
-
-/*
-@route    GET /api
-@desc     api param
-@access   public
-*/
-router.get('/', (req, res) => res.status(200).json({ msg: 'Hello world' }));
-
-// !subdomains
-/*
-@route    GET /api/auth
-@desc     users sub param
-@access   public
-*/
-router.use('/auth2', require('./apiRoutes/auth'));
-
-// !or we could split this way based on methods
+// !route methods
+// auth
+const { getLogin } = require('./auth/login');
+const verifyJWT = require('../middlewares/verifyJWT');
 
 // Auth routes
 /*
-@route    GET /api/auth2/login
-@desc     test subroute
+@route    GET /api/auth/login
+@desc     This will change to a post later most likely
 @access   public
 */
 router.get('/auth/login', getLogin);
 
+// Test routes
+/*
+@route    GET /api/test/auth
+@desc     test verify jwt middleware
+@access   public
+*/
+router.get('/test', verifyJWT, (req, res) => res.status(200).json({ msg: 'Authenticated' }));
 
 module.exports = router;
