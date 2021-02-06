@@ -5,6 +5,7 @@ const router = Router();
 // !route methods
 // auth
 const { getLogin } = require('./auth/login');
+const { test } = require('./dummy/test');
 const verifyJWT = require('../middlewares/verifyJWT');
 
 // Auth routes
@@ -14,6 +15,14 @@ const verifyJWT = require('../middlewares/verifyJWT');
 @access   public
 */
 router.get('/auth/login', getLogin);
+
+// dummy routes
+/*
+@route    GET /api/dummy
+@desc     This will change to a post later most likely
+@access   public
+*/
+router.get('/dummy/test', test);
 
 // Test routes
 /*
