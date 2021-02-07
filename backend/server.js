@@ -3,6 +3,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 const env = require('../config/env');
 const apiRoutes = require('./controllers/routes/api');
 const crossOrigin = require('./controllers/middlewares/crossOrigin');
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+app.use(cors());
 app.use(
   session({
     secret: env.SES_SECRET,
