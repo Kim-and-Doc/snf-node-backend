@@ -4,7 +4,7 @@ const router = Router();
 
 // !route methods
 const { getLogin } = require('./auth/login');
-const { getUsers } = require('./dummy/user');
+const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
 const { testSelect, testInsert, testDelete } = require('./db/test');
 const verifyJWT = require('../middlewares/verifyJWT');
@@ -12,6 +12,8 @@ const verifyJWT = require('../middlewares/verifyJWT');
 // !Dummy routes //////////////////////
 // ? User routes
 router.get('/dummy/user', getUsers);
+router.get('/dummy/user/:userId', getUser);
+router.get('/dummy/user/:userId/post', getUserPosts);
 
 // ? Post routes
 router.get('/dummy/post', getPosts);

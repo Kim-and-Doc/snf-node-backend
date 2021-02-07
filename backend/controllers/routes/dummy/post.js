@@ -2,7 +2,7 @@ const axios = require('axios');
 const env = require('../../../../config/env');
 
 /*
-@route    GET /api/dummy/test
+@route    GET /api/dummy/post
 @desc     Get 50 posts
 @access   public
 */
@@ -20,7 +20,7 @@ const getPosts = async (req, res) => {
 };
 
 /*
-@route    GET /api/dummy/test
+@route    GET /api/dummy/post/:postId
 @desc     Get a specific post
 @access   public
 */
@@ -37,7 +37,7 @@ const getPost = async (req, res) => {
 };
 
 /*
-@route    GET /api/dummy/test
+@route    GET /api/dummy/post/:postId/comment
 @desc     Get comments in post
 @access   public
 */
