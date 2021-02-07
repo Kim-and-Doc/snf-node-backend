@@ -38,7 +38,7 @@ const getUser = async (req, res) => {
   try {
     const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}`, headers);
     const data = await result.data;
-    return res.json({ data });
+    return res.json({ msg: 'success', data });
   } catch (err) {
     return res.json({ msg: 'error', error: err });
   }
@@ -61,7 +61,7 @@ const getUserPosts = async (req, res) => {
   try {
     const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}/post?limit=${limit}`, headers);
     const data = await result.data;
-    return res.json({ data });
+    return res.json({ msg: 'success', data });
   } catch (err) {
     return res.json({ msg: 'error', error: err });
   }
