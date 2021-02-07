@@ -14,9 +14,13 @@ const getUsers = async (req, res) => {
   };
   // can change limit
   const limit = 50;
-  const result = await axios.get(`https://dummyapi.io/data/api/user?limit=${limit}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/user?limit=${limit}`, headers);
+    const data = await result.data;
+    return res.json({ msg: 'success', data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 
 /*
@@ -31,10 +35,13 @@ const getUser = async (req, res) => {
       'app-id': env.DUM_API,
     },
   };
-  // can change limit
-  const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}`, headers);
+    const data = await result.data;
+    return res.json({ data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 
 /*
@@ -49,10 +56,14 @@ const getUserPosts = async (req, res) => {
       'app-id': env.DUM_API,
     },
   };
-  // can change limit
+
   const limit = 50;
-  const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}/post?limit=${limit}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/user/${userId}/post?limit=${limit}`, headers);
+    const data = await result.data;
+    return res.json({ data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 module.exports = { getUsers, getUser, getUserPosts };

@@ -14,9 +14,13 @@ const getPosts = async (req, res) => {
   };
   // can change limit
   const limit = 50;
-  const result = await axios.get(`https://dummyapi.io/data/api/post?limit=${limit}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/post?limit=${limit}`, headers);
+    const data = await result.data;
+    return res.json({ data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 
 /*
@@ -31,9 +35,13 @@ const getPost = async (req, res) => {
       'app-id': env.DUM_API,
     },
   };
-  const result = await axios.get(`https://dummyapi.io/data/api/post/${postId}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/post/${postId}`, headers);
+    const data = await result.data;
+    return res.json({ data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 
 /*
@@ -49,9 +57,13 @@ const getComments = async (req, res) => {
     },
   };
   const limit = 50;
-  const result = await axios.get(`https://dummyapi.io/data/api/post/${postId}/comment?limit=${limit}`, headers);
-  const data = await result.data;
-  return res.json({ data, result });
+  try {
+    const result = await axios.get(`https://dummyapi.io/data/api/post/${postId}/comment?limit=${limit}`, headers);
+    const data = await result.data;
+    return res.json({ data });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
 };
 
 module.exports = { getPosts, getPost, getComments };
