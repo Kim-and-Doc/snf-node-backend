@@ -1,6 +1,11 @@
 const axios = require('axios');
 const env = require('../../../../config/env');
 
+/*
+@route    GET /api/dummy/test
+@desc     Get 50 users
+@access   public
+*/
 const getUsers = async (req, res) => {
   const headers = {
     headers: {

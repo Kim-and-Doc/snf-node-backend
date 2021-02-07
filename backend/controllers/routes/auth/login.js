@@ -1,6 +1,11 @@
 const jwt = require('jsonwebtoken');
 const env = require('../../../../config/env');
 
+/*
+@route    GET /api/auth/login
+@desc     This will change to a post later most likely
+@access   public
+*/
 const getLogin = (req, res) => {
   // compare and get from db
 
