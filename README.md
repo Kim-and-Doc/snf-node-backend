@@ -13,12 +13,17 @@ npm i
     Go to downloads > latest > Introduction > Follow the steps
 
     In terminal:
-        psql -U postgres                    <- or different username
+        // open psql using that user. Can replace postgres with other db user
+        psql -U postgres                   
 
         In postgres-cli:
+            // connect to the database to be used
             \c db_name
 
+            // check what tables are in that db
             \dt
+
+            // example
             select * from "Users";
             https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
 

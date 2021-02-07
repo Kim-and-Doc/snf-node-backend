@@ -5,17 +5,41 @@ const router = Router();
 // !route methods
 // auth
 const { getLogin } = require('./auth/login');
-const { test } = require('./dummy/test');
+const { getUsers } = require('./dummy/user');
+const { getPosts, getPost, getComments } = require('./dummy/post');
 const { testSelect, testInsert, testDelete } = require('./db/test');
 const verifyJWT = require('../middlewares/verifyJWT');
 
 // !Dummy routes
+// ? User routes
 /*
 @route    GET /api/dummy/test
-@desc     This will change to a post later most likely
+@desc     Get 50 users
 @access   public
 */
-router.get('/dummy/test', test);
+router.get('/dummy/user', getUsers);
+
+// ? Post routes
+/*
+@route    GET /api/dummy/test
+@desc     Get 50 posts
+@access   public
+*/
+router.get('/dummy/post', getPosts);
+
+/*
+@route    GET /api/dummy/test
+@desc     Get a specific post
+@access   public
+*/
+router.get('/dummy/post/:postId', getPost);
+
+/*
+@route    GET /api/dummy/test
+@desc     Get comments in post
+@access   public
+*/
+router.get('/dummy/post/:postId/comment', getComments);
 
 // !DB country test routes
 /*

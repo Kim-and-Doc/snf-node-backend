@@ -1,15 +1,17 @@
 const axios = require('axios');
 const env = require('../../../../config/env');
 
-const test = async (req, res) => {
+const getUsers = async (req, res) => {
   const headers = {
     headers: {
       'app-id': env.DUM_API,
     },
   };
-  const result = await axios.get('https://dummyapi.io/data/api/user', headers);
+  // can change limit
+  const limit = 50;
+  const result = await axios.get(`https://dummyapi.io/data/api/user?limit=${limit}`, headers);
   const data = await result.data;
   return res.json(data);
 };
 
-module.exports = { test };
+module.exports = { getUsers };
