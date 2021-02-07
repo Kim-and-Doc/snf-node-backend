@@ -7,6 +7,7 @@ const env = require('../config/env');
 const apiRoutes = require('./controllers/routes/api');
 const crossOrigin = require('./controllers/middlewares/crossOrigin');
 const errorHandler = require('./controllers/middlewares/errorHandler');
+const db = require('../models');
 
 const PORT = process.env.PORT || 5000;
 
@@ -43,6 +44,8 @@ if (env.DEBUG === 'false') {
 
 app.use(errorHandler.errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+db.sequelize.sync().then((req) => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
