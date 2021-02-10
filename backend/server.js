@@ -3,15 +3,18 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 const env = require('../config/env');
 const apiRoutes = require('./controllers/routes/api');
 const crossOrigin = require('./controllers/middlewares/crossOrigin');
 const errorHandler = require('./controllers/middlewares/errorHandler');
+const db = require('../models');
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+app.use(cors());
 app.use(
   session({
     secret: env.SES_SECRET,
@@ -43,6 +46,8 @@ if (env.DEBUG === 'false') {
 
 app.use(errorHandler.errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+db.sequelize.sync().then((req) => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });

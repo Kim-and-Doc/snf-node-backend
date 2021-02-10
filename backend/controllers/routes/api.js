@@ -1,33 +1,40 @@
 const { Router } = require('express');
+
 const router = Router();
 
-// route methods
-const {getLogin} = require('./auth/login')
+// !route methods
+const { getLogin } = require('./auth/login');
+const { getUsers, getUser, getUserPosts } = require('./dummy/user');
+const { getPosts, getPost, getComments } = require('./dummy/post');
+const { testSelect, testInsert, testDelete } = require('./db/test');
+const verifyJWT = require('../middlewares/verifyJWT');
 
+// !Dummy routes //////////////////////
+// ? User routes
+router.get('/dummy/user', getUsers);
+router.get('/dummy/user/:userId', getUser);
+router.get('/dummy/user/:userId/post', getUserPosts);
+
+// ? Post routes
+router.get('/dummy/post', getPosts);
+router.get('/dummy/post/:postId', getPost);
+router.get('/dummy/post/:postId/comment', getComments);
+
+// !DB test routes //////////////////////
+// ? Test db usage for using country table
+router.get('/db/get', testSelect);
+router.get('/db/ins', testInsert);
+router.get('/db/del', testDelete);
+
+// !Auth routes //////////////////////
+router.get('/auth/login', getLogin); // not complete
+
+// !Test verifyJWT route //////////////////////
 /*
-@route    GET /api
-@desc     api param
+@route    GET /api/test/auth
+@desc     test verify jwt middleware
 @access   public
 */
-router.get('/', (req, res) => res.status(200).json({ msg: 'Hello world' }));
-
-// !subdomains
-/*
-@route    GET /api/auth
-@desc     users sub param
-@access   public
-*/
-router.use('/auth2', require('./apiRoutes/auth'));
-
-// !or we could split this way based on methods
-
-// Auth routes
-/*
-@route    GET /api/auth2/login
-@desc     test subroute
-@access   public
-*/
-router.get('/auth/login', getLogin);
-
+router.get('/test', verifyJWT, (req, res) => res.status(200).json({ msg: 'Authenticated' }));
 
 module.exports = router;
