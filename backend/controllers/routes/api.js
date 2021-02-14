@@ -21,7 +21,7 @@ router.get('/dummy/post', getPosts);
 router.get('/dummy/post/:postId', getPost);
 router.get('/dummy/post/:postId/comment', getComments);
 
-// !Spoon routes //////////////////////
+// !Food routes //////////////////////
 // ? Food Post routes
 router.get('/spoon/posts', getFoodPosts);
 
