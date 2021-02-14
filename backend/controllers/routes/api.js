@@ -6,6 +6,7 @@ const router = Router();
 const { getLogin } = require('./auth/login');
 const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
+const { getFoodPosts } = require('./spoon/foodPost');
 const { testSelect, testInsert, testDelete } = require('./db/test');
 const verifyJWT = require('../middlewares/verifyJWT');
 
@@ -19,6 +20,10 @@ router.get('/dummy/user/:userId/post', getUserPosts);
 router.get('/dummy/post', getPosts);
 router.get('/dummy/post/:postId', getPost);
 router.get('/dummy/post/:postId/comment', getComments);
+
+// !Spoon routes //////////////////////
+// ? Food Post routes
+router.get('/spoon/posts', getFoodPosts);
 
 // !DB test routes //////////////////////
 // ? Test db usage for using country table
