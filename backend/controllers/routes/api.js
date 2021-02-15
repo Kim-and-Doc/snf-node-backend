@@ -28,14 +28,17 @@ router.get('/food/post/:foodPostId', getFoodPost);
 
 // !DB test routes //////////////////////
 // ? Test db usage for using country table
+// delete later
 router.get('/db/get', testSelect);
 router.get('/db/ins', testInsert);
 router.get('/db/del', testDelete);
 
 // !Auth routes //////////////////////
-router.get('/auth/login', getLogin); // not complete
+// not complete
+router.get('/auth/login', getLogin);
 
 // !Test verifyJWT route //////////////////////
+// need to test
 /*
 @route    GET /api/test/auth
 @desc     test verify jwt middleware
