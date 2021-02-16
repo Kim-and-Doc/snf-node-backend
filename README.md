@@ -32,6 +32,9 @@ npm i
             // example
             select * from "Users";
 
+            // drop table to fix constraints
+            drop table "Posts";
+
 
             https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
 
