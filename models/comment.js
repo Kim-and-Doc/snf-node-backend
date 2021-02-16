@@ -3,7 +3,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Post extends Model {
+  class Comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.myAssociation = this.belongsTo(models.User, { foreignKey: 'userId' });
-      this.myAssociation = this.hasMany(models.Comment, { foreignKey: 'commentId' });
+      this.myAssociation = this.belongsTo(models.Post, { foreignKey: 'postId' });
     }
   }
-  Post.init({
-    postId: {
+  Comment.init({
+    commentId: {
       type: DataTypes.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
+      allowNull: false,
+    },
+    postId: {
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
     },
     userId: {
@@ -27,30 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: Sequelize.UUIDV4,
       allowNull: false,
     },
-    numLikes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      allowNull: false,
-    },
-    isFoodPost: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    textContent: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    imageContent: {
+    commentContent: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    postedDate: {
+    createdDate: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.NOW,
     },
   }, {
     sequelize,
-    modelName: 'Post',
+    modelName: 'Comment',
   });
-  return Post;
+  return Comment;
 };
