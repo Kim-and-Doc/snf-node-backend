@@ -3,12 +3,11 @@ const { Router } = require('express');
 const router = Router();
 
 // !route methods
-const { getLogin } = require('./auth/login');
 const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
 const { getFoodPosts, getFoodPost } = require('./food/foodPost');
 const { testSelect, testInsert, testDelete } = require('./db/test');
-const verifyJWT = require('../middlewares/verifyJWT');
+const { getDbUser, createUser } = require('./fill/user');
 
 // !Dummy routes //////////////////////
 // ? User routes
@@ -26,24 +25,16 @@ router.get('/dummy/post/:postId/comment', getComments);
 router.get('/food/posts', getFoodPosts);
 router.get('/food/post/:foodPostId', getFoodPost);
 
+// !Fill db routes ////////
+// ? Delete later!
+router.get('/fill/user', getDbUser);
+router.get('/fill/user/create', createUser);
+
 // !DB test routes //////////////////////
 // ? Test db usage for using country table
 // delete later
 router.get('/db/get', testSelect);
 router.get('/db/ins', testInsert);
 router.get('/db/del', testDelete);
-
-// !Auth routes //////////////////////
-// not complete
-router.get('/auth/login', getLogin);
-
-// !Test verifyJWT route //////////////////////
-// need to test
-/*
-@route    GET /api/test/auth
-@desc     test verify jwt middleware
-@access   public
-*/
-router.get('/test', verifyJWT, (req, res) => res.status(200).json({ msg: 'Authenticated' }));
 
 module.exports = router;
