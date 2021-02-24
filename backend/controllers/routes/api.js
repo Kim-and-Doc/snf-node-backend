@@ -7,7 +7,8 @@ const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
 const { getFoodPosts, getFoodPost } = require('./food/foodPost');
 const { testSelect, testInsert, testDelete } = require('./db/test');
-const { getDbUser, createUser } = require('./fill/user');
+const { getDbUser, createUser, deleteUser } = require('./fill/user');
+const { getDbPosts, createDbPost, deleteDbPost } = require('./post/generalPost');
 
 // !Dummy routes //////////////////////
 // ? User routes
@@ -25,10 +26,24 @@ router.get('/dummy/post/:postId/comment', getComments);
 router.get('/food/posts', getFoodPosts);
 router.get('/food/post/:foodPostId', getFoodPost);
 
+// !Post db routes ////////
+// ? Temporary Post routes
+// get all posts
+router.get('/posts', getDbPosts);
+// get single post (do later)
+
+// create post
+router.get('/posts/create', createDbPost);
+// delete post
+router.get('/posts/delete', deleteDbPost);
+// edit post (do later)
+
 // !Fill db routes ////////
-// ? Delete later!
+// Delete these routes later
+// ? Test User
 router.get('/fill/user', getDbUser);
 router.get('/fill/user/create', createUser);
+router.get('/fill/user/delete', deleteUser);
 
 // !DB test routes //////////////////////
 // ? Test db usage for using country table

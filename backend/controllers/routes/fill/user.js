@@ -1,8 +1,7 @@
-const { v4: uuid } = require('uuid');
 const { User } = require('../../../../models');
 
 /*
-@route    GET /api/fill/get
+@route    GET /api/fill/user
 @desc     select * from users;
 @access   public
 */
@@ -17,15 +16,15 @@ const getDbUser = async (req, res) => {
 
 /*
 @route    GET /api/fill/user/create
-@desc     This should be post but just to create if db is empty
+@desc     create test user
 @access   public
 */
 const createUser = async (req, res) => {
   try {
     const testUser = await User.findAll({ where: { email: 'test@gmail.com' } });
     if (testUser.length === 0) {
-      User.create({
-        uuid: uuid(), firstName: 'Test', lastName: 'Me', email: 'test@gmail.com', password: 'password',
+      await User.create({
+        firstName: 'Test', lastName: 'Me', email: 'test@gmail.com', password: 'password',
       });
       return res.json({ msg: 'success, test user created' });
     }
@@ -35,4 +34,20 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { getDbUser, createUser };
+/*
+@route    GET /api/fill/user/delete
+@desc     delete test user
+@access   public
+*/
+const deleteUser = async (req, res) => {
+  try {
+    await User.destroy({
+      where: { email: 'test@gmail.com' },
+    });
+    return res.json({ msg: 'success, test user deleted' });
+  } catch (err) {
+    return res.json({ msg: 'error', error: err });
+  }
+};
+
+module.exports = { getDbUser, createUser, deleteUser };

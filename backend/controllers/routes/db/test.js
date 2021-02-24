@@ -1,4 +1,3 @@
-const env = require('../../../../config/env');
 const { Country } = require('../../../../models');
 
 /*
@@ -22,7 +21,7 @@ const testSelect = async (req, res) => {
 */
 const testInsert = async (req, res) => {
   try {
-    Country.create({ country: 'Afghanistan', countryCode: 'AF' });
+    await Country.create({ country: 'Afghanistan', countryCode: 'AF' });
     return res.json({ msg: 'success' });
   } catch (err) {
     return res.json({ msg: 'error', error: err });
