@@ -50,4 +50,6 @@ db.sequelize.sync().then((req) => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
+}).catch((err) => {
+  console.log(`error: ${err.message}\nCheck if local dev db is running`);
 });

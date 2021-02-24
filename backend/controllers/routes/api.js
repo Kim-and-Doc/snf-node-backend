@@ -3,12 +3,12 @@ const { Router } = require('express');
 const router = Router();
 
 // !route methods
-const { getLogin } = require('./auth/login');
 const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
 const { getFoodPosts, getFoodPost } = require('./food/foodPost');
 const { testSelect, testInsert, testDelete } = require('./db/test');
-const verifyJWT = require('../middlewares/verifyJWT');
+const { getDbUser, createUser, deleteUser } = require('./fill/user');
+const { getDbPosts, createDbPost, deleteDbPost } = require('./post/generalPost');
 
 // !Dummy routes //////////////////////
 // ? User routes
@@ -26,21 +26,30 @@ router.get('/dummy/post/:postId/comment', getComments);
 router.get('/food/posts', getFoodPosts);
 router.get('/food/post/:foodPostId', getFoodPost);
 
+// !Post db routes ////////
+// ? Temporary Post routes
+// get all posts
+router.get('/posts', getDbPosts);
+// get single post (do later)
+
+// create post
+router.get('/posts/create', createDbPost);
+// delete post
+router.get('/posts/delete', deleteDbPost);
+// edit post (do later)
+
+// !Fill db routes ////////
+// Delete these routes later
+// ? Test User
+router.get('/fill/user', getDbUser);
+router.get('/fill/user/create', createUser);
+router.get('/fill/user/delete', deleteUser);
+
 // !DB test routes //////////////////////
 // ? Test db usage for using country table
+// delete later
 router.get('/db/get', testSelect);
 router.get('/db/ins', testInsert);
 router.get('/db/del', testDelete);
-
-// !Auth routes //////////////////////
-router.get('/auth/login', getLogin); // not complete
-
-// !Test verifyJWT route //////////////////////
-/*
-@route    GET /api/test/auth
-@desc     test verify jwt middleware
-@access   public
-*/
-router.get('/test', verifyJWT, (req, res) => res.status(200).json({ msg: 'Authenticated' }));
 
 module.exports = router;
