@@ -6,9 +6,10 @@ const router = Router();
 const { getUsers, getUser, getUserPosts } = require('./dummy/user');
 const { getPosts, getPost, getComments } = require('./dummy/post');
 const { getFoodPosts, getFoodPost } = require('./food/foodPost');
-const { testSelect, testInsert, testDelete } = require('./db/test');
 const { getDbUser, createUser, deleteUser } = require('./fill/user');
-const { getDbPosts, createDbPost, deleteDbPost } = require('./post/generalPost');
+const {
+  getDbPosts, getDbPostById, createDbPost, deleteDbPost, getDbPostsByUser, updateDbPost,
+} = require('./post/generalPost');
 const { getDbCountry, populateCountry, findCountry } = require('./fill/country');
 
 // !Dummy routes //////////////////////
@@ -30,17 +31,22 @@ router.get('/food/post/:foodPostId', getFoodPost);
 // !Post db routes ////////
 // ? Temporary Post routes
 // get all posts
-router.get('/posts', getDbPosts);
-// get single post (do later)
-
+router.get('/post', getDbPosts);
+// get posts by user
+router.get('/post/user/:userId', getDbPostsByUser);
+// get single post by id
+router.get('/post/id/:postId', getDbPostById);
+// edit post by id
+router.post('/post/id/:postId', updateDbPost); // !Test this later
 // create post
-router.get('/posts/create', createDbPost);
+router.get('/post/create', createDbPost);
 // delete post
-router.get('/posts/delete', deleteDbPost);
-// edit post (do later)
+router.get('/post/delete/id/:postId', deleteDbPost);
+
+// !Comment db routes //////
 
 // !Fill db routes ////////
-// Delete these routes later
+// Adjust these routes later
 // ? Test User
 router.get('/fill/user', getDbUser);
 router.get('/fill/user/create', createUser);
@@ -49,12 +55,4 @@ router.get('/fill/user/delete', deleteUser);
 router.get('/fill/country', getDbCountry);
 router.get('/fill/country/create', populateCountry);
 router.get('/fill/country/:code', findCountry);
-
-// !DB test routes //////////////////////
-// ? Test db usage for using country table
-// delete later
-router.get('/db/get', testSelect);
-router.get('/db/ins', testInsert);
-router.get('/db/del', testDelete);
-
 module.exports = router;
